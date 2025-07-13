@@ -1,97 +1,73 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Support Ticketing System
 
-# Getting Started
+A full-stack MERN application for Intellipaat to automate their student support process.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+- User registration and login
+- JWT authentication
+- Ticket creation by users
+- Admin dashboard to manage tickets
+- Status updates for tickets
+- Automatic removal of closed tickets from admin view
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Technologies
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **Frontend**: React, React Router, Context API, Axios
+- **Backend**: Node.js, Express, MongoDB, Mongoose
+- **Authentication**: JWT, bcryptjs
 
-```sh
-# Using npm
-npm start
+## Setup
 
-# OR using Yarn
-yarn start
-```
+### Prerequisites
 
-## Step 2: Build and run your app
+- Node.js (v14+)
+- MongoDB (local or Atlas)
+- npm or yarn
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### Backend Setup
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+1. Navigate to the server directory:
+#### Update .env with your MongoDB URI and JWT secret
+   ```bash
+   cd server
+   npm install
+   cp .env.example .env
+   npm start
+   ```
+2. Ensure MongoDB is running and the URI in `.env` is correct.
+3. Start the backend server:
+   ```bash
+   npm start
+   ```
+### Frontend Setup
+1. Navigate to the client directory:
+   ```bash
+   cd client
+   npm install
+   ```
+2. Update the API base URL in `src/api.js` to match your backend server URL.
+3. Start the frontend application:
+   ```bash
+   npm start
+   ```
+### Testing
+1. Ensure both backend and frontend servers are running.
+2. Open your browser and navigate to `http://localhost:3000` (or the port you configured).
+3. Register a new user and log in.
+4. Create a support ticket and check the admin dashboard for ticket management.
+5. Update ticket statuses and verify that closed tickets are removed from the admin view.
+6. Test JWT authentication by accessing protected routes.
+7. Check the responsiveness of the application on different devices.
+8. Verify that the application handles errors gracefully, such as invalid login attempts or ticket creation failures.
+9. Ensure that the application is secure against common vulnerabilities like XSS and CSRF.
+10. Test the application with different user roles (admin and user) to ensure proper access control.
+11. Check the application logs for any errors or warnings during operation.
+12. Ensure that the application is optimized for performance, including fast loading times and efficient database queries.
+13. Test the application with different browsers to ensure cross-browser compatibility.
+14. Verify that the application is accessible and usable for users with disabilities, following WCAG guidelines.
+15. Check the application for any memory leaks or performance issues during prolonged use.
+16. Test the application with a large number of tickets to ensure it can handle high loads without crashing or slowing down.
+17. Ensure that the application is properly documented, including API endpoints and user guides.
+18. Test the application with different network conditions, such as slow connections or intermittent connectivity, to ensure it remains functional.
+   
