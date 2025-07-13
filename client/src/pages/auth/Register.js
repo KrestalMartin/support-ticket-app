@@ -8,13 +8,14 @@ const Register = () => {
         name: '',
         email: '',
         password: '',
-        passwordConfirm: ''
+        passwordConfirm: '',
+        role: 'user'
     });
     const [error, setError] = useState(null);
     const { register } = useContext(AuthContext);
     const history = useHistory();
 
-    const { name, email, password, passwordConfirm } = formData;
+    const { name, email, password, passwordConfirm, role } = formData;
 
     const onChange = e =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,9 +28,16 @@ const Register = () => {
         }
 
         try {
-            await register({ name, email, password });
-            history.push('/dashboard');
+            console.log('[REGISTER] Calling register API with:', { name, email, password, role });
+            const result = await register({ name, email, password, role });
+            console.log('[REGISTER] Registration successful');
+            if (result && result.user && result.user.role === 'admin') {
+                history.push('/admin/dashboard');
+            } else {
+                history.push('/dashboard');
+            }
         } catch (err) {
+            console.log('[REGISTER] Registration failed:', err);
             setError(err.response?.data?.message || 'Registration failed');
         }
     };
@@ -85,6 +93,18 @@ const Register = () => {
                         minLength="6"
                         required
                     />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="role">Role</label>
+                    <select
+                        id="role"
+                        name="role"
+                        value={role}
+                        onChange={onChange}
+                    >
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
                 </div>
                 <button type="submit" className="btn btn-primary">
                     Register

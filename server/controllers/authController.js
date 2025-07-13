@@ -6,16 +6,30 @@ const asyncHandler = require('../middlewares/async');
 // @route   POST /api/auth/register
 // @access  Public
 exports.register = asyncHandler(async (req, res, next) => {
-    const { name, email, password } = req.body;
-
-    // Create user
-    const user = await User.create({
-        name,
-        email,
-        password
-    });
-
-    sendTokenResponse(user, 200, res);
+    const { name, email, password, role } = req.body;
+    console.log('[REGISTER] Incoming data:', req.body);
+    try {
+        // Create user, allow role to be set if provided (for admin registration)
+        const user = await User.create({
+            name,
+            email,
+            password,
+            role: role || 'user'
+        });
+        console.log('[REGISTER] User created:', user.email, 'Role:', user.role);
+        sendTokenResponse(user, 200, res);
+    } catch (err) {
+        console.error('[REGISTER] Registration error:', err);
+        // If duplicate key error
+        if (err.code === 11000) {
+            return next(new ErrorResponse('Email already exists', 400));
+        }
+        // Validation error
+        if (err.name === 'ValidationError') {
+            return next(new ErrorResponse(err.message, 400));
+        }
+        return next(new ErrorResponse('Registration failed', 500));
+    }
 });
 
 // @desc    Login user
@@ -87,12 +101,17 @@ const sendTokenResponse = (user, statusCode, res) => {
         options.secure = true;
     }
 
+    // Remove password from user object before sending
+    const userObj = user.toObject();
+    delete userObj.password;
+
     res
         .status(statusCode)
         .cookie('token', token, options)
         .json({
             success: true,
             token,
-            role: user.role
+            role: user.role,
+            user: userObj
         });
 };

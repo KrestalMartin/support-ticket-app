@@ -1,0 +1,78 @@
+{
+  "info": {
+    "name": "Support Ticket System API",
+    "description": "Bruno collection for Support Ticket System server API",
+    "schema": "https://usebruno.com/schema/collection.json"
+  },
+  "requests": [
+    {
+      "name": "Register User",
+      "method": "POST",
+      "url": "http://localhost:5001/api/auth/register",
+      "body": {
+        "mode": "json",
+        "json": {
+          "name": "Test User",
+          "email": "testuser@example.com",
+          "password": "password123"
+        }
+      }
+    },
+    {
+      "name": "Login User",
+      "method": "POST",
+      "url": "http://localhost:5001/api/auth/login",
+      "body": {
+        "mode": "json",
+        "json": {
+          "email": "testuser@example.com",
+          "password": "password123"
+        }
+      }
+    },
+    {
+      "name": "Logout User",
+      "method": "GET",
+      "url": "http://localhost:5001/api/auth/logout"
+    },
+    {
+      "name": "Get Current User",
+      "method": "GET",
+      "url": "http://localhost:5001/api/auth/me"
+    },
+    {
+      "name": "Create Ticket",
+      "method": "POST",
+      "url": "http://localhost:5001/api/tickets/",
+      "body": {
+        "mode": "json",
+        "json": {
+          "course": "ReactJS",
+          "concern": "Need help with assignment"
+        }
+      }
+    },
+    {
+      "name": "Get User Tickets",
+      "method": "GET",
+      "url": "http://localhost:5001/api/tickets/user"
+    },
+    {
+      "name": "Get Open Tickets (Admin)",
+      "method": "GET",
+      "url": "http://localhost:5001/api/admin/tickets"
+    },
+    {
+      "name": "Update Ticket Status (Admin)",
+      "method": "PUT",
+      "url": "http://localhost:5001/api/admin/tickets/:id",
+      "body": {
+        "mode": "json",
+        "json": {
+          "status": "Closed"
+        }
+      }
+    }
+  ]
+}
+

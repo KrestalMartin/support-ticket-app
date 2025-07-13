@@ -20,8 +20,12 @@ const Login = () => {
     const onSubmit = async e => {
         e.preventDefault();
         try {
-            await login({ email, password });
-            history.push('/dashboard');
+            const result = await login({ email, password });
+            if (result && result.user && result.user.role === 'admin') {
+                history.push('/admin/dashboard');
+            } else {
+                history.push('/dashboard');
+            }
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
         }
